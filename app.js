@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const xXssProtection = require("x-xss-protection");
 var routes = require("./app/routes/user");
+var route = require("./app/routes/index");
 var fs = require("fs");
 
 
@@ -19,7 +20,7 @@ app.use(function (req, res, next) {
 app.use(xXssProtection());
 app.use("/", express.static("./app/"));
 app.use("/", routes);
-
+//app.use("/img", route);
 
 
 app.listen(91, () => {

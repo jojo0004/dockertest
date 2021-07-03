@@ -21,3 +21,68 @@ exports.get1 = (req, res, next) => {
                 })
         })
 }
+
+
+
+exports.registerController = (req, res, next) => {
+  
+    const {PART='', NUMBER='', YEAR='', QU=''} = req.query;  
+    console.log(PART,NUMBER,YEAR,QU)                           
+                    UserModel.insertUserLSFHP_ARMAST({PART, NUMBER, YEAR, QU})
+                        .then(() => {
+                            res.status(201)
+                                .json({
+                                    message: 'success'
+                                })
+                        }).catch((error) => {
+                            res.status(500)
+                                .json({
+                                    message: error
+                                })
+                        })
+              
+                
+            
+        
+    
+}
+
+exports.getquestion1 = (req, res, next) => {      
+    UserModel.getquestion1()
+        .then(([row]) => {
+            if (row.length !== 0) {
+               
+                res.send(row)
+               
+            }else{
+             
+               
+            }
+
+        }).catch((error) => {
+            res.status(500)
+                .json({
+                    message: error
+                })
+        })
+}
+
+exports.getquestion2= (req, res, next) => {      
+    UserModel.getquestion2()
+        .then(([row]) => {
+            if (row.length !== 0) {
+               
+                res.send(row)
+               
+            }else{
+             
+               
+            }
+
+        }).catch((error) => {
+            res.status(500)
+                .json({
+                    message: error
+                })
+        })
+}

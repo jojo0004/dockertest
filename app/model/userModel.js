@@ -18,6 +18,21 @@ static getall({CUSCOD=''}) {
    
     return db.execute("SELECT CUSCOD FROM cal2009.newcontno WHERE CUSCOD = ? limit 10 ", [CUSCOD])
 }
+static getquestion1() {
+   
+    return db.execute("SELECT * FROM cal2009.question1")
+}
+
+static getquestion2() {
+   
+    return db.execute("SELECT * FROM cal2009.question2")
+}
+
+static insertUserLSFHP_ARMAST({PART= '', NUMBER= '', YEAR= '', QU= '' }) {
+
+return db.execute('INSERT INTO cal2009.question1 (PART, NUMBER,YEAR,QT) VALUES (?,?,?,?)',
+    [PART, NUMBER, YEAR, QU])
+}
 
 
 }
