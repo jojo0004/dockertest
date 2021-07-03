@@ -47,8 +47,10 @@ exports.registerController = (req, res, next) => {
     
 }
 
-exports.getquestion1 = (req, res, next) => {      
-    UserModel.getquestion1()
+exports.getquestion1 = (req, res, next) => {   
+    const YEAR  = req.params.YEAR   
+    const PART  = req.params.PART   
+    UserModel.getquestion1({YEAR,PART})
         .then(([row]) => {
             if (row.length !== 0) {
                
@@ -67,8 +69,10 @@ exports.getquestion1 = (req, res, next) => {
         })
 }
 
-exports.getquestion2= (req, res, next) => {      
-    UserModel.getquestion2()
+exports.getquestion2= (req, res, next) => {  
+    const YEAR  = req.params.YEAR   
+    const PART  = req.params.PART     
+    UserModel.getquestion2({YEAR,PART})
         .then(([row]) => {
             if (row.length !== 0) {
                

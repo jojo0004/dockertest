@@ -8,8 +8,8 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/mers/:CUSCOD', get1);
-router.get('/getquestion1', getquestion1);
-router.get('/getquestion2', getquestion2);
+router.get('/:YEAR/:PART/manager', getquestion1);
+router.get('/:YEAR/:PART/officer', getquestion2);
 router.post('/register', registerController);
 
 module.exports = router;

@@ -18,14 +18,14 @@ static getall({CUSCOD=''}) {
    
     return db.execute("SELECT CUSCOD FROM cal2009.newcontno WHERE CUSCOD = ? limit 10 ", [CUSCOD])
 }
-static getquestion1() {
+static getquestion1({YEAR ='',PART=''}) {
    
-    return db.execute("SELECT * FROM cal2009.question1")
+    return db.execute("SELECT * FROM cal2009.question1 WHERE YEAR = ? and PART = ?",[YEAR,PART])
 }
 
-static getquestion2() {
+static getquestion2({YEAR ='',PART=''}) {
    
-    return db.execute("SELECT * FROM cal2009.question2")
+    return db.execute("SELECT * FROM cal2009.question2  WHERE YEAR = ? and PART = ?",[YEAR,PART])
 }
 
 static insertUserLSFHP_ARMAST({PART= '', NUMBER= '', YEAR= '', QU= '' }) {
