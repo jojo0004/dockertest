@@ -4,11 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-<<<<<<< HEAD
-
-=======
->>>>>>> e5a5d2aad378795a52151217f5b17830db69c5df
   },
   "keywords": [],
   "author": "",
