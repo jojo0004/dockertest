@@ -1,0 +1,15 @@
+---
+application:
+  name: "dockertest"
+  project: "Programming-api"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-dockertest"
+  routes:
+  - application_name: "dockertest"
+    paths:
+    - "/*"
+databases:
+- type: mysql
+  version: 8.0
+  name: my-mysql
