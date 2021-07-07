@@ -4,7 +4,7 @@ const xXssProtection = require("x-xss-protection");
 var routes = require("./app/routes/user");
 var route = require("./app/routes/index");
 var fs = require("fs");
-
+app.use(express.json())
 
 app.use(function (req, res, next) {
   res.setHeader("X-XSS-Protection", "1; mode=block");

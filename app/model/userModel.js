@@ -34,7 +34,19 @@ return db.execute('INSERT INTO cal2009.question1 (PART, NUMBER,YEAR,QT) VALUES (
     [PART, NUMBER, YEAR, QU])
 }
 
+static insertAws1({USERID='', ANSWER='', YEAR='', PART='', NUMBER='', videoURL='',date=''}) {
+
+    return db.execute('INSERT INTO cal2009.aws1 (USERID, ANSWER, YEAR, PART, NUMBER,videoURL,date) VALUES (?,?,?,?,?,?,?)',
+        [USERID, ANSWER, YEAR, PART, NUMBER, videoURL,date])
+    }
+ static UPDATEAws1({USERID='', ANSWER='', YEAR='', PART='', NUMBER='', videoURL='',date=''}) {
+        return db.execute('UPDATE cal2009.aws1 SET  ANSWER=?,  videoURL=?,date=? WHERE USERID=? and YEAR=? and PART=? and NUMBER=?',
+            [ ANSWER,videoURL,date,USERID,YEAR, PART, NUMBER])
+
+    }
 
 }
+
+
 
 module.exports = UserModel;

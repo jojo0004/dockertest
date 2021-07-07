@@ -90,3 +90,43 @@ exports.getquestion2= (req, res, next) => {
                 })
         })
 }
+
+
+exports.PostAnswer = (req, res, next) => {
+    console.log(req.body.ANSWER)
+    const {USERID='', ANSWER='', YEAR='', PART='', NUMBER='', videoURL='',date=''} = req.body.ANSWER;             
+        UserModel.insertAws1({USERID, ANSWER, YEAR, PART, NUMBER, videoURL,date})
+        .then(() => {
+            res.status(201)
+                .json({
+                    message: 'success',
+                    
+                })
+        }).catch((error) => {
+            res.status(500)
+                .json({
+                    message: error
+                })
+        })   
+ 
+     
+                 
+}
+
+exports.PutAnswer = (req, res, next) => {
+    console.log(req.body)
+    const {USERID='', ANSWER='', YEAR='', PART='', NUMBER='', videoURL='',date=''} = req.body.ANSWER;  
+                            
+                    UserModel.UPDATEAws1({USERID, ANSWER, YEAR, PART, NUMBER, videoURL,date})
+                        .then(() => {
+                            res.status(201)
+                                .json({
+                                    message: 'success',                                   
+                                })
+                        }).catch((error) => {
+                            res.status(500)
+                                .json({
+                                    message: error
+                                })
+                        })   
+}
