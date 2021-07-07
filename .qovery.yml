@@ -1,7 +1,7 @@
 ---
 application:
   name: "dockertest"
-  project: "Programming-api"
+  project: "Programming"
   organization: "QoveryCommunity"
 routers:
 - name: "main-dockertest"
