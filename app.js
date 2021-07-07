@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const xXssProtection = require("x-xss-protection");
 var routes = require("./app/routes/user");
+const PORT = process.env.PORT || 8080
 //var route = require("./app/routes/index");
 var fs = require("fs");
 app.use(express.json())
@@ -23,6 +24,6 @@ app.use("/", routes);
 //app.use("/img", route);
 
 
-app.listen(91, () => {
+app.listen(PORT, () => {
   console.log("Server is running..");
 });
