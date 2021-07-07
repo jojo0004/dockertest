@@ -9,8 +9,7 @@ const Database = mysql.createPool({
     port:3306  ,
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0,
-    charset : 'utf8mb4'
+    queueLimit: 0
 })
 
 module.exports = Database.promise();
