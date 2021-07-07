@@ -2,7 +2,7 @@
 application:
   name: "dockertest"
   project: "PROGRAM-API"
-  organization: "QoveryCommunity"
+  organization: "PROGRAM-API"
 routers:
 - name: "main-dockertest"
   routes:
