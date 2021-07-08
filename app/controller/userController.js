@@ -59,7 +59,15 @@ exports.getquestion1 = (req, res, next) => {
                 res.send(row)
                
             }else{
-                res.send(row)
+                UserModel.getquestion_1({year,part})
+                .then(([row])=> {
+                    res.send(row)
+                }).catch((error) => {
+                    res.status(500)
+                        .json({
+                            message: error
+                        })
+                })
                
             }
 
@@ -82,8 +90,15 @@ exports.getquestion2= (req, res, next) => {
                 res.send(row)
                
             }else{
-                res.send(row)
-               
+                UserModel.getquestion_2({year,part})
+                .then(([row])=> {
+                    res.send(row)
+                }).catch((error) => {
+                    res.status(500)
+                        .json({
+                            message: error
+                        })
+                })                          
             }
 
         }).catch((error) => {
