@@ -18,30 +18,31 @@ static getall({CUSCOD=''}) {
    
     return db.execute("SELECT CUSCOD FROM cal2009.newcontno WHERE CUSCOD = ? limit 10 ", [CUSCOD])
 }
-static getquestion1({YEAR ='',PART=''}) {
+static getquestion1({year ='',part=''}) {
    
-    return db.execute("SELECT * FROM cal2009.question1 WHERE YEAR = ? and PART = ?",[YEAR,PART])
+    return db.execute("SELECT * FROM cal2009.question1 WHERE year = ? and part = ?",[year,part])
 }
 
-static getquestion2({YEAR ='',PART=''}) {
+static getquestion2({year ='',part=''}) {
    
-    return db.execute("SELECT * FROM cal2009.question2  WHERE YEAR = ? and PART = ?",[YEAR,PART])
+    return db.execute("SELECT * FROM cal2009.question2  WHERE year = ? and part = ?",[year,part])
 }
 
-static insertUserLSFHP_ARMAST({PART= '', NUMBER= '', YEAR= '', QU= '' }) {
+static insertUserLSFHP_ARMAST({part= '', number= '', year= '', qt= '' }) {
 
-return db.execute('INSERT INTO cal2009.question1 (PART, NUMBER,YEAR,QT) VALUES (?,?,?,?)',
-    [PART, NUMBER, YEAR, QU])
+return db.execute('INSERT INTO cal2009.question1 (part, number,year,qt) VALUES (?,?,?,?)',
+    [part, number, year, qt])
 }
 
-static insertAws1({USERID='', ANSWER='', YEAR='', PART='', NUMBER='', videoURL='',date=''}) {
+static insertAws1({userid='', answer='', year='', part='', number='', videoURL='', date=''}) {
 
-    return db.execute('INSERT INTO cal2009.aws1 (USERID, ANSWER, YEAR, PART, NUMBER,videoURL,date) VALUES (?,?,?,?,?,?,?)',
-        [USERID, ANSWER, YEAR, PART, NUMBER, videoURL,date])
+    return db.execute('INSERT INTO cal2009.aws1 (userid, answer, year, part,number,videoURL,date) VALUES (?,?,?,?,?,?,?)',
+        [userid, answer, year, part,number, videoURL, date])
     }
- static UPDATEAws1({USERID='', ANSWER='', YEAR='', PART='', NUMBER='', videoURL='',date=''}) {
-        return db.execute('UPDATE cal2009.aws1 SET  ANSWER=?,  videoURL=?,date=? WHERE USERID=? and YEAR=? and PART=? and NUMBER=?',
-            [ ANSWER,videoURL,date,USERID,YEAR, PART, NUMBER])
+ static UPDATEAws1({userid='', answer='', year='', part='',number='', videoURL='', date=''}) {
+        return db.execute('UPDATE cal2009.aws1 SET  answer=?,  videoURL=?,date=? WHERE userid=? and year=? and part=? and number=?',
+            [ answer,videoURL,date,userid, year, part,number])
+            
 
     }
 

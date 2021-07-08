@@ -26,9 +26,9 @@ exports.get1 = (req, res, next) => {
 
 exports.registerController = (req, res, next) => {
   
-    const {PART='', NUMBER='', YEAR='', QU=''} = req.query;  
-    console.log(PART,NUMBER,YEAR,QU)                           
-                    UserModel.insertUserLSFHP_ARMAST({PART, NUMBER, YEAR, QU})
+    const {part='', number='', year='', qt=''} = req.query;  
+    console.log(part,number,year,qt)                           
+                    UserModel.insertUserLSFHP_ARMAST({part, number, year, qt})
                         .then(() => {
                             res.status(201)
                                 .json({
@@ -48,9 +48,9 @@ exports.registerController = (req, res, next) => {
 }
 
 exports.getquestion1 = (req, res, next) => {   
-    const YEAR  = req.params.YEAR   
-    const PART  = req.params.PART   
-    UserModel.getquestion1({YEAR,PART})
+    const year  = req.params.year   
+    const part  = req.params.part   
+    UserModel.getquestion1({year,part})
         .then(([row]) => {
             if (row.length !== 0) {
                
@@ -70,9 +70,9 @@ exports.getquestion1 = (req, res, next) => {
 }
 
 exports.getquestion2= (req, res, next) => {  
-    const YEAR  = req.params.YEAR   
-    const PART  = req.params.PART     
-    UserModel.getquestion2({YEAR,PART})
+    const year  = req.params.year   
+    const part  = req.params.part     
+    UserModel.getquestion2({year,part})
         .then(([row]) => {
             if (row.length !== 0) {
                
@@ -93,9 +93,9 @@ exports.getquestion2= (req, res, next) => {
 
 
 exports.PostAnswer = (req, res, next) => {
-    console.log(req.body.ANSWER)
-    const {USERID='', ANSWER='', YEAR='', PART='', NUMBER='', videoURL='',date=''} = req.body.ANSWER;             
-        UserModel.insertAws1({USERID, ANSWER, YEAR, PART, NUMBER, videoURL,date})
+
+    const {userid='', answer='', year='', part='', number='', videoURL='', date=''} = req.body;             
+        UserModel.insertAws1({userid, answer, year, part, number, videoURL, date})
         .then(() => {
             res.status(201)
                 .json({
@@ -114,10 +114,11 @@ exports.PostAnswer = (req, res, next) => {
 }
 
 exports.PutAnswer = (req, res, next) => {
-    console.log(req.body)
-    const {USERID='', ANSWER='', YEAR='', PART='', NUMBER='', videoURL='',date=''} = req.body.ANSWER;  
+
+    
+    const {userid='', answer='', year='', part='', number='', videoURL='', date=''} = req.body;  
                             
-                    UserModel.UPDATEAws1({USERID, ANSWER, YEAR, PART, NUMBER, videoURL,date})
+                    UserModel.UPDATEAws1({userid, answer, year, part, number, videoURL, date})
                         .then(() => {
                             res.status(201)
                                 .json({
