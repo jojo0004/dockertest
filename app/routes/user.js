@@ -8,9 +8,9 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/mers/:CUSCOD', get1);
-router.get('/:year/:part/manager', getquestion1);
-router.get('/:year/:part/officer', getquestion2);
+router.get('/:userid/:year/:part/manager', getquestion1);
+router.get('/:userid/:year/:part/officer', getquestion2);
 router.post('/register', registerController);
-router.post('/Answer', PostAnswer);
-router.put('/EditAnswer', PutAnswer);
+router.post('/:userid/:year/:part/:number/Answer', PostAnswer);
+router.put('/:userid/:year/:part/:number/Answer', PutAnswer);
 module.exports = router;

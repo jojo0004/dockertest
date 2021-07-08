@@ -18,14 +18,16 @@ static getall({CUSCOD=''}) {
    
     return db.execute("SELECT CUSCOD FROM cal2009.newcontno WHERE CUSCOD = ? limit 10 ", [CUSCOD])
 }
-static getquestion1({year ='',part=''}) {
-   
-    return db.execute("SELECT * FROM cal2009.question1 WHERE year = ? and part = ?",[year,part])
+static getquestion1({userid='',year ='',part=''}) {
+    
+    return db.execute("SELECT * FROM cal2009.question1 LEFT JOIN cal2009.aws1 ON cal2009.question1.year = cal2009.aws1.year and cal2009.question1.part = cal2009.aws1.part and cal2009.question1.number = cal2009.aws1.number  WHERE cal2009.aws1.userid = ? and cal2009.aws1.year = ? and cal2009.aws1.part = ?"
+    ,[userid,year,part])
 }
 
-static getquestion2({year ='',part=''}) {
+static getquestion2({userid='',year ='',part=''}) {
    
-    return db.execute("SELECT * FROM cal2009.question2  WHERE year = ? and part = ?",[year,part])
+    return db.execute("SELECT * FROM cal2009.question2 LEFT JOIN cal2009.aws1 ON cal2009.question2.year = cal2009.aws1.year and cal2009.question2.part = cal2009.aws1.part and cal2009.question2.number = cal2009.aws1.number  WHERE cal2009.aws1.userid = ? and cal2009.aws1.year = ? and cal2009.aws1.part = ?"
+    ,[userid,year,part])
 }
 
 static insertUserLSFHP_ARMAST({part= '', number= '', year= '', qt= '' }) {

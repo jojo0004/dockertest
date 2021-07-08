@@ -47,10 +47,11 @@ exports.registerController = (req, res, next) => {
     
 }
 
-exports.getquestion1 = (req, res, next) => {   
+exports.getquestion1 = (req, res, next) => {  
+    const userid  = req.params.userid 
     const year  = req.params.year   
     const part  = req.params.part   
-    UserModel.getquestion1({year,part})
+    UserModel.getquestion1({userid,year,part})
         .then(([row]) => {
             if (row.length !== 0) {
                
@@ -70,9 +71,10 @@ exports.getquestion1 = (req, res, next) => {
 }
 
 exports.getquestion2= (req, res, next) => {  
+    const userid  = req.params.userid 
     const year  = req.params.year   
     const part  = req.params.part     
-    UserModel.getquestion2({year,part})
+    UserModel.getquestion2({userid,year,part})
         .then(([row]) => {
             if (row.length !== 0) {
                
@@ -93,8 +95,11 @@ exports.getquestion2= (req, res, next) => {
 
 
 exports.PostAnswer = (req, res, next) => {
-
-    const {userid='', answer='', year='', part='', number='', videoURL='', date=''} = req.body;             
+    const userid  = req.params.userid 
+    const year  = req.params.year   
+    const part  = req.params.part  
+    const number  = req.params.number
+    const {answer='', videoURL='', date=''} = req.body;             
         UserModel.insertAws1({userid, answer, year, part, number, videoURL, date})
         .then(() => {
             res.status(201)
@@ -114,10 +119,11 @@ exports.PostAnswer = (req, res, next) => {
 }
 
 exports.PutAnswer = (req, res, next) => {
-
-    
-    const {userid='', answer='', year='', part='', number='', videoURL='', date=''} = req.body;  
-                            
+    const userid  = req.params.userid 
+    const year  = req.params.year   
+    const part  = req.params.part  
+    const number  = req.params.number  
+    const {answer='', videoURL='', date=''} = req.body;                             
                     UserModel.UPDATEAws1({userid, answer, year, part, number, videoURL, date})
                         .then(() => {
                             res.status(201)
