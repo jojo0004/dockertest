@@ -53,12 +53,13 @@ exports.getquestion1 = (req, res, next) => {
     const part  = req.params.part   
     UserModel.getquestion1({userid,year,part})
         .then(([row]) => {
+            
             if (row.length !== 0) {
                
                 res.send(row)
                
             }else{
-             
+                res.send(row)
                
             }
 
@@ -81,7 +82,7 @@ exports.getquestion2= (req, res, next) => {
                 res.send(row)
                
             }else{
-             
+                res.send(row)
                
             }
 
