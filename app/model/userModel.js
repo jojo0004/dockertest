@@ -20,13 +20,13 @@ static getall({CUSCOD=''}) {
 }
 static getquestion1({userid='',year ='',part=''}) {
     
-    return db.execute("SELECT * FROM cal2009.question1 LEFT JOIN cal2009.aws1 ON cal2009.question1.year = cal2009.aws1.year and cal2009.question1.part = cal2009.aws1.part and cal2009.question1.number = cal2009.aws1.number  WHERE cal2009.aws1.userid = ? and cal2009.aws1.year = ? and cal2009.aws1.part = ?"
+    return db.execute("SELECT * FROM cal2009.question1 LEFT JOIN cal2009.aws1 ON cal2009.question1.year = cal2009.aws1.year and cal2009.question1.part = cal2009.aws1.part and cal2009.question1.number = cal2009.aws1.number  WHERE cal2009.aws1.userid = ? and cal2009.aws1.year = ? and cal2009.aws1.part = ? order by cal2009.aws1.number asc"
     ,[userid,year,part])
 }
 
 static getquestion_1({year ='',part=''}) {
     
-    return db.execute("SELECT * FROM cal2009.question1 WHERE year = ? and part = ?"
+    return db.execute("SELECT * FROM cal2009.question1 WHERE year = ? and part = ? order by number asc"
     ,[year,part])
 }
 

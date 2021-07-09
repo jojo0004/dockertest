@@ -1,4 +1,5 @@
 
+const e = require('express');
 const UserModel = require('../model/userModel');
 
 exports.get1 = (req, res, next) => { 
@@ -54,9 +55,44 @@ exports.getquestion1 = (req, res, next) => {
     UserModel.getquestion1({userid,year,part})
         .then(([row]) => {
             
-            if (row.length !== 0) {
+            if (row.length !== 0) {   
+                te=[]  
+             
+                UserModel.getquestion_1({year,part})
+                .then(([row1])=> {                   
+                  row1.forEach((element,index) => {     
+                         
+                      row.forEach((element1,index1)=>{
+                  
+                         if(element.number===element1.number)
+                         {
+                          te.push({userid:element1.userid,year:element.year,part:element.part
+                              ,number:element.number,qt:element.qt,answer:element1.answer
+                              ,videoURL:element1.videoURL,date:element1.date                               
+                          })  
+                                          
+                         }  
+                                                      
+                      }) 
+                      if(index>=row.length){
+                        te.push({year:element.year,part:element.part
+                            ,number:element.number,qt:element.qt}) 
+                      }
                
-                res.send(row)
+                                                                                                          
+                  })                                               
+                             
+                   res.send(te)
+                 
+                      
+                }).catch((error) => {
+                    res.status(500)
+                        .json({
+                            message: error
+                        })
+                })
+              
+              
                
             }else{
                 UserModel.getquestion_1({year,part})
