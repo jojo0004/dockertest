@@ -74,7 +74,7 @@ exports.getquestion1 = (req, res, next) => {
                          }  
                                                       
                       }) 
-                      if(index>=row.length){
+                      if(index>=te.length){                         
                         te.push({year:element.year,part:element.part
                             ,number:element.number,qt:element.qt}) 
                       }
