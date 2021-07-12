@@ -16,7 +16,7 @@ class UserModel {
 
     static getall({ USERID = '' }) {
 
-        return db.execute("SELECT * FROM cal2009.loginqt WHERE userid = ?", [USERID])
+        return db.execute("SELECT cal2009.history.userid,cal2009.loginqt.password,title_name, name, lastname, nickname, phone, email, department,cal2009.history.position FROM cal2009.loginqt LEFT JOIN cal2009.history ON cal2009.loginqt.userid = cal2009.history.userid WHERE cal2009.loginqt.userid = ?", [USERID])
     }
 
     static insertUser({ USERID = '', PASSWORD = '',position=''}) {
@@ -29,6 +29,12 @@ class UserModel {
 
         return db.execute('UPDATE cal2009.loginqt SET  password=? WHERE userid=?',
             [ PASSWORD,USERID])
+    }
+
+    static insertHistory({ userid='',title_name='', name='', lastname='', nickname='', phone='', email='', department='',position='' }) {
+
+        return db.execute('INSERT INTO cal2009.history (userid,title_name, name, lastname, nickname, phone, email, department,position) VALUES (?,?,?,?,?,?,?,?,?)',
+            [userid,title_name, name, lastname, nickname, phone, email, department,position])
     }
 
     static getquestion1({ userid = '', year = '', part = '' }) {
