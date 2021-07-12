@@ -14,10 +14,23 @@ class UserModel {
 
     }
 
-    static getall({ CUSCOD = '' }) {
+    static getall({ USERID = '' }) {
 
-        return db.execute("SELECT CUSCOD FROM cal2009.newcontno WHERE CUSCOD = ? limit 10 ", [CUSCOD])
+        return db.execute("SELECT * FROM cal2009.loginqt WHERE userid = ?", [USERID])
     }
+
+    static insertUser({ USERID = '', PASSWORD = '',position=''}) {
+
+        return db.execute('INSERT INTO cal2009.loginqt (userid, password,position) VALUES (?,?,?)',
+            [USERID, PASSWORD,position])
+    }
+
+    static updateUser({ USERID = '', PASSWORD = ''}) {
+
+        return db.execute('UPDATE cal2009.loginqt SET  password=? WHERE userid=?',
+            [ PASSWORD,USERID])
+    }
+
     static getquestion1({ userid = '', year = '', part = '' }) {
 
         return db.execute("SELECT * FROM cal2009.question1 LEFT JOIN cal2009.aws1 ON cal2009.question1.year = cal2009.aws1.year and cal2009.question1.part = cal2009.aws1.part and cal2009.question1.number = cal2009.aws1.number  WHERE cal2009.aws1.userid = ? and cal2009.aws1.year = ? and cal2009.aws1.part = ? order by cal2009.aws1.number asc"
@@ -32,7 +45,7 @@ class UserModel {
 
     static getquestion2({ userid = '', year = '', part = '' }) {
 
-        return db.execute("SELECT * FROM cal2009.question2 LEFT JOIN cal2009.aws1 ON cal2009.question2.year = cal2009.aws1.year and cal2009.question2.part = cal2009.aws1.part and cal2009.question2.number = cal2009.aws1.number  WHERE cal2009.aws1.userid = ? and cal2009.aws1.year = ? and cal2009.aws1.part = ?"
+        return db.execute("SELECT * FROM cal2009.question2 LEFT JOIN cal2009.aws2 ON cal2009.question2.year = cal2009.aws2.year and cal2009.question2.part = cal2009.aws2.part and cal2009.question2.number = cal2009.aws2.number  WHERE cal2009.aws2.userid = ? and cal2009.aws2.year = ? and cal2009.aws2.part = ? order by cal2009.aws2.number asc"
             , [userid, year, part])
     }
 

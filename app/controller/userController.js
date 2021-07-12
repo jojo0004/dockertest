@@ -1,21 +1,55 @@
 
 const e = require('express');
 const UserModel = require('../model/userModel');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
-exports.get1 = (req, res, next) => { 
-    const CUSCOD = req.params.CUSCOD    
-    UserModel.getall({CUSCOD:CUSCOD})
+
+
+exports.loginController = (req, res, next) => {
+    const { userid = '', password } = req.body;
+    UserModel.getall({ USERID: userid })
         .then(([row]) => {
             if (row.length !== 0) {
-               
-                res.send(row)
-               
-            }else{
-             
-                console.log(CUSCOD)
-            }
+                return bcrypt.compare(password, row[0].password)
+                    .then((result) => {
+                        if (!result) {
+                            res.status(401)
+                                .json({
+                                    message: "Authentication failed"
+                                })
+                        }
+                        else { 
+                                                
+                            let jwtToken = jwt.sign({
+                                userid: row[0].userid,
+                                expiresIn: 3600                        
+                            },
+                                "create-authen-nodejs", {
+                                expiresIn: "1h"
+                            });
+                            res.status(200).json({
+                                userid: row[0].userid,
+                                status_login: true,
+                            });
+                   
+                        }
+                    }).catch((error) => {
+                        res.status(401)
+                            .json({
+                                message: "Authentication failed1",
+                                error: error
 
-        }).catch((error) => {
+                            })
+                    })
+            } else {
+                res.status(401)
+                    .json({
+                        message: "Authentication failed"
+                    })
+            }
+        })
+        .catch((error) => {
             res.status(500)
                 .json({
                     message: error
@@ -24,8 +58,101 @@ exports.get1 = (req, res, next) => {
 }
 
 
+exports.register = (req, res, next) => {
+    const { userid = '', password,position='' } = req.body;
+    const ROLE1 = 'admin'
+    UserModel.getall({ USERID: userid })
+        .then(([row]) => {
+            if (row.length !== 0) {
+                res.status(401)
+                .json({
+                    message: "Authentication failed"
+                })
+            } else {
+                bcrypt.hash(password, 10)
+                .then((hash) => {
+                    UserModel.insertUser({ USERID: userid , PASSWORD: hash,position:position})
+                        .then(() => {
+                            res.status(201)
+                                .json({
+                                    message: 'success'
+                                })
+                        }).catch((error) => {
+                            res.status(500)
+                                .json({
+                                    message: error
+                                })
+                        })
+                })
+                .catch((error) => {
+                    res.status(500)
+                        .json({
+                            message: error
+                        })
+                })
+            }
+        })
+        .catch((error) => {
+            res.status(500)
+                .json({
+                    message: error
+                })
+        })
 
-exports.registerController = (req, res, next) => {
+    
+    
+}
+
+exports.register1 = (req, res, next) => {  
+    const { userid = '', password} = req.body;
+    const ROLE1 = 'admin'
+    UserModel.getall({ USERID: userid })
+        .then(([row]) => {
+            if (row.length !== 0) {
+                bcrypt.hash(password, 10)
+                .then((hash) => {
+                    UserModel.updateUser({ USERID: userid , PASSWORD: hash})
+                        .then(() => {
+                            res.status(201)
+                                .json({
+                                    message: 'success'
+                                })
+                        }).catch((error) => {
+                            res.status(500)
+                                .json({
+                                    message: error
+                                })
+                        })
+                    })
+                    .catch((error) => {
+                        res.status(500)
+                            .json({
+                                message: error
+                            })
+                    })
+            } else {
+                res.status(401)
+                .json({
+                    message: "Authentication failed"
+                })
+              
+               
+            }
+        })
+        .catch((error) => {
+            res.status(500)
+                .json({
+                    message: error
+                })
+        })
+
+    
+    
+}
+
+
+
+exports.ask_questions = (req, res, next) => {
   
     const {part='', number='', year='', qt=''} = req.query;  
     console.log(part,number,year,qt)                           
