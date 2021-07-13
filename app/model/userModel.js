@@ -67,6 +67,12 @@ class UserModel {
             [part, number, year, qt])
     }
 
+    static getAws1({ userid = '', year = '', part = '', number = ''}) {
+       
+        return db.execute('SELECT * FROM cal2009.aws1 WHERE userid=? and year = ? and part = ? and number= ?',
+            [userid, year, part, number])
+    }
+
     static insertAws1({ userid = '', answer = '', year = '', part = '', number = '', videoURL = '', date = '' }) {
 
         return db.execute('INSERT INTO cal2009.aws1 (userid, answer, year, part,number,videoURL,date) VALUES (?,?,?,?,?,?,?)',
@@ -80,6 +86,12 @@ class UserModel {
     }
 
 
+    static getAws2({ userid = '', year = '', part = '', number = ''}) {
+       
+        return db.execute('SELECT * FROM cal2009.aws2 WHERE userid=? and year = ? and part = ? and number= ?',
+            [userid, year, part, number])
+    }
+    
     static insertAws2({ userid = '', answer = '', year = '', part = '', number = '', videoURL = '', date = '' }) {
 
         return db.execute('INSERT INTO cal2009.aws2 (userid, answer, year, part,number,videoURL,date) VALUES (?,?,?,?,?,?,?)',

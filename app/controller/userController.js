@@ -323,14 +323,33 @@ exports.PostAnswer1 = (req, res, next) => {
     const part  = req.params.part  
     const number  = req.params.number
     const {answer='', videoURL='', date=''} = req.body;             
-        UserModel.insertAws1({userid, answer, year, part, number, videoURL, date})
-        .then(() => {
+    UserModel.getAws1({userid,year, part, number})
+    .then(([row])=>{
+      
+        if(row.length !== 0)
+        {
             res.status(201)
-                .json({
-                    message: 'success',
-                    
-                })
-        }).catch((error) => {
+            .json({
+                message: 'มีคำตอบแล้ว',
+                
+            })
+        }else
+        {
+            UserModel.insertAws1({userid, answer, year, part, number, videoURL, date})
+            .then(() => {
+                res.status(201)
+                    .json({
+                        message: 'success',
+                        
+                    })
+            }).catch((error) => {
+                res.status(500)
+                    .json({
+                        message: error
+                    })
+            })   
+        }
+    }).catch((error) => {
             res.status(500)
                 .json({
                     message: error
@@ -345,20 +364,40 @@ exports.PostAnswer2 = (req, res, next) => {
     const year  = req.params.year   
     const part  = req.params.part  
     const number  = req.params.number
-    const {answer='', videoURL='', date=''} = req.body;             
-        UserModel.insertAws2({userid, answer, year, part, number, videoURL, date})
-        .then(() => {
+    const {answer='', videoURL='', date=''} = req.body; 
+    UserModel.getAws2({userid,year, part, number})
+    .then(([row])=>{
+      
+        if(row.length !== 0)
+        {
             res.status(201)
-                .json({
-                    message: 'success',
-                    
-                })
-        }).catch((error) => {
+            .json({
+                message: 'มีคำตอบแล้ว',
+                
+            })
+        }else
+        {
+            UserModel.insertAws2({userid, answer, year, part, number, videoURL, date})
+            .then(() => {
+                res.status(201)
+                    .json({
+                        message: 'success',
+                        
+                    })
+            }).catch((error) => {
+                res.status(500)
+                    .json({
+                        message: error
+                    })
+            })   
+        }
+    }).catch((error) => {
             res.status(500)
                 .json({
                     message: error
                 })
-        })   
+        })            
+       
  
      
                  
