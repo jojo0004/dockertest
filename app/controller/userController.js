@@ -5,6 +5,22 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 
+exports.users = (req, res, next) => {
+                             
+                    UserModel.getusers()
+                        .then(([row]) => {
+                            res.send(row)
+                        }).catch((error) => {
+                            res.status(500)
+                                .json({
+                                    message: error
+                                })
+                        })   
+}
+
+
+
+
 
 exports.loginController = (req, res, next) => {
     const { userid = '', password } = req.body;

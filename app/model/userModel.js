@@ -14,6 +14,11 @@ class UserModel {
 
     }
 
+    static getusers() {
+
+        return db.execute("SELECT * FROM cal2009.history")
+    }
+
     static getall({ USERID = '' }) {
 
         return db.execute("SELECT cal2009.history.userid,cal2009.loginqt.password,title_name, name, lastname, nickname, phone, email, department,cal2009.history.position FROM cal2009.loginqt LEFT JOIN cal2009.history ON cal2009.loginqt.userid = cal2009.history.userid WHERE cal2009.loginqt.userid = ?", [USERID])
