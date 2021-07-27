@@ -18,7 +18,34 @@ exports.users = (req, res, next) => {
                         })   
 }
 
-
+exports.users_de = (req, res, next) => {
+    const userid  = req.params.userid 
+    const position  = req.params.position   
+    const department  = req.params.department
+    if(position == 'ผู้จัดการ')
+    {
+        UserModel.getusers_de({department })
+        .then(([row]) => {
+            res.send(row)
+        }).catch((error) => {
+            res.status(500)
+                .json({
+                    message: error
+                })
+        }) 
+    }else if(position =='admin'){
+        UserModel.getusers()
+        .then(([row]) => {
+            res.send(row)
+        }).catch((error) => {
+            res.status(500)
+                .json({
+                    message: error
+                })
+        }) 
+    }    
+     
+}
 
 
 

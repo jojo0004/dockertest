@@ -18,6 +18,10 @@ class UserModel {
 
         return db.execute("SELECT * FROM cal2009.history")
     }
+    static getusers_de({ department= '' }) {
+
+        return db.execute("SELECT * FROM cal2009.history where department = ?",[department])
+    }
 
     static getall({ USERID = '' }) {
 

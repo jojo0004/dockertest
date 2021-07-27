@@ -1,6 +1,6 @@
 const express = require('express');
 const router  = express.Router();
-const {loginController,users,history,register,register1,ask_questions,getquestion1,getquestion2,PostAnswer1, PostAnswer2, PutAnswer1, PutAnswer2} = require('../controller/userController');
+const {loginController,users,users_de,history,register,register1,ask_questions,getquestion1,getquestion2,PostAnswer1, PostAnswer2, PutAnswer1, PutAnswer2} = require('../controller/userController');
 
 
 router.get('/', (req, res, next) => {
@@ -14,6 +14,7 @@ router.put('/register',register1);
 
 router.post('/login',loginController);
 router.get('/users',users);
+router.get('/:userid/:position/:department',users_de);
 router.get('/:year/:part/manager/:userid', getquestion1);
 router.get('/:year/:part/officer/:userid', getquestion2);
 
