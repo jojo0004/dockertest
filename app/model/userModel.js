@@ -16,7 +16,7 @@ class UserModel {
 
     static getusers() {
 
-        return db.execute("SELECT * FROM cal2009.history")
+        return db.execute("SELECT  *  FROM cal2009.history LEFT JOIN cal2009.aws2 ON cal2009.aws2.userid = cal2009.history.userid GROUP BY cal2009.aws2.userid HAVING count(cal2009.aws2.number) >= 11")
     }
     static getusers_de({ department= '' }) {
 
