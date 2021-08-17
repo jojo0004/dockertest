@@ -1,12 +1,15 @@
 const express = require('express');
 const router  = express.Router();
-const {loginController,users,users_de,history,register,register1,ask_questions,getquestion1,getquestion2,PostAnswer1, PostAnswer2, PutAnswer1, PutAnswer2} = require('../controller/userController');
+const {getcontno,getre1,getre2,loginController,users,users_de,history,register,register1,ask_questions,getquestion1,getquestion2,PostAnswer1, PostAnswer2, PutAnswer1, PutAnswer2} = require('../controller/userController');
 
 
 router.get('/', (req, res, next) => {
     res.send('User api')
 })
 
+router.get('/getcontno',getcontno);
+router.get('/getcontno/:contno',getre1);
+router.post('/getcontno1/:contno',getre2);
 router.post('/ask_questions',ask_questions);
 router.post('/history',history);
 router.post('/register',register);

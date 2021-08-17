@@ -113,6 +113,40 @@ class UserModel {
 
     }
 
+
+
+
+
+
+
+    static getcontno() {
+        return db.execute("SELECT cal2009.sfhp_armast.contno, SDATE , balanc , salcod , tcshprc ,t_nopay , sum(payment) as totalpayment ,count(ddate)+1 as totalnopay,damt"
+      + " FROM cal2009.sfhp_armast LEFT JOIN  cal2009.sfhp_arpay on cal2009.sfhp_armast.contno = cal2009.sfhp_arpay.contno "+
+      " where SALCOD = 'lex00004' and ddate <= '2021-08-20' group by cal2009.sfhp_armast.contno desc having  sum(payment) >= balanc*0.5")
+    }
+    static getre1({contno='',ddate=''}) {
+        return db.execute("SELECT cal2009.sfhp_armast.contno, SDATE , balanc , salcod , tcshprc ,t_nopay , sum(payment) as totalpayment ,count(ddate)+1 as totalnopay,damt"
+      + " FROM cal2009.sfhp_armast LEFT JOIN  cal2009.sfhp_arpay on cal2009.sfhp_armast.contno = cal2009.sfhp_arpay.contno "+
+      " where cal2009.sfhp_armast.contno = ? and ddate <= ? group by cal2009.sfhp_armast.contno desc having  sum(payment) >= balanc*0.5",
+      [contno,ddate])
+    }
+    static getdamt({contno='',ddate=''}) {       
+        return db.execute("SELECT cal2009.sfhp_arpay.CONTNO,T_NOPAY,NAME1,NAME2,REGNO,NOPAY,DDATE,DAMT,DATE1,PAYMENT,DELAY,INTAMT,cal2009.sfhp_invtran.STRNO,cal2009.sfhp_invtran.TYPE,cal2009.sfhp_invtran.BAAB "
+        +" FROM cal2009.sfhp_armast LEFT JOIN cal2009.sfhp_custmast ON cal2009.sfhp_armast.CUSCOD = cal2009.sfhp_custmast.CUSCOD JOIN cal2009.sfhp_arpay ON cal2009.sfhp_armast.CONTNO= cal2009.sfhp_arpay.CONTNO JOIN cal2009.sfhp_invtran ON cal2009.sfhp_invtran.CONTNO = cal2009.sfhp_arpay.CONTNO "
+        +" WHERE cal2009.sfhp_arpay.CONTNO = ? AND cal2009.sfhp_arpay.ddate <= ? AND cal2009.sfhp_arpay.DAMT > cal2009.sfhp_arpay.PAYMENT order by nopay",
+        [contno,ddate])
+    }
+    
+    static getaa({contno=''}) {       
+        return db.execute("select sum(cal2009.sfhp_arpay.INTAMT) aa ,payment from  cal2009.sfhp_arpay where cal2009.sfhp_arpay.CONTNO = ? and cal2009.sfhp_arpay.damt-cal2009.sfhp_arpay.payment=0",
+        [contno])
+    }
+   
+    static getPayint({contno=''}) {       
+        return db.execute(" select sum(PAYINT) PAYI,balanc from cal2009.sfhp_chqtran LEFT JOIN cal2009.sfhp_armast on cal2009.sfhp_armast.CONTNO = cal2009.sfhp_chqtran.CONTNO  where cal2009.sfhp_chqtran.CONTNO = ? and cal2009.sfhp_chqtran.flag = 'H' GROUP BY cal2009.sfhp_chqtran.CONTNO",
+        [contno])
+    }
+
 }
 
 
